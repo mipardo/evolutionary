@@ -15,9 +15,10 @@ class Fauna {
     }
 
     move() {
-        this.preys.forEach(prey => prey.move(2));
-        this.predators.forEach(predator => predator.move(2));
+        this.preys.forEach(prey => prey.move());
+        this.predators.forEach(predator => predator.move());
     }
+
 
     #generatePredators(size) {
         for (let i = 0; i < size; i++) {
