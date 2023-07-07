@@ -2,11 +2,13 @@ function setup() {
     const width = 800;
     const height = 800;
     createCanvas(width, height); 
-    predator = new Predator(width, height);
+    
+    fauna = new Fauna(width, height, 10, 10);
 }
 
 function draw() {
     background(220);
-    predator.move(0, -1) 
-    predator.draw();
+
+    fauna.move();
+    fauna.draw();
 }
