@@ -3,6 +3,7 @@ class Individual {
     constructor(canvasWidth, canvasHeight, position, direction, speed, longevity, fertility, viweingDistance, viweingRange) {
         this.age = 0;                                       // (0 - longevity)
         this.speed = speed;                                 // (0 - 10)
+        this.energy = 1000;
         this.position = position;
         this.direction = direction;
         this.strength = 10 - speed;                         // (0 - 10) : inverse of strength
@@ -25,10 +26,10 @@ class Individual {
             this.randomDirectionShift = this.#getRandomDirectionShift();
         } 
         this.#move(this.randomStep, this.randomDirectionShift);
-        this.age++;
     }
     
     #move(step, directionShift) {
+        this.energy -= step;
         this.direction += directionShift;
         let xShift = sin(radians(this.direction));
         let yShift = -cos(radians(this.direction));
@@ -46,7 +47,7 @@ class Individual {
     }
 
     #getRandomDirectionShift(){
-        const directions = [0, -1, 1, -2, 2];
+        const directions = [0, -1, 1];
         const randomIndex = Math.floor(Math.random() * directions.length);
         return directions[randomIndex];
     }

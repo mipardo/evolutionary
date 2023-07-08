@@ -1,7 +1,6 @@
 class Fauna {
     constructor(canvasWidth, canvasHeight, nPreys, nPredators) {
-        this.preys = [];
-        this.predators = [];
+        this.individuals = [];
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.spawningPositions = new Set(); 
@@ -10,22 +9,50 @@ class Fauna {
     }
 
     draw() {
-        this.preys.forEach(prey => prey.draw());
-        this.predators.forEach(predator => predator.draw());
+        this.individuals.forEach(individual => individual.draw());
     }
 
-    move() {
-        this.preys.forEach(prey => prey.move());
-        this.predators.forEach(predator => predator.move());
+    
+    interact() {
+        this.#killElderlyIndividualsRandomly();
+        this.#killIndividualsWithNoEnergy();
+        this.#move();
+        this.#getOlder();
+    }
+    
+    #killIndividualsWithNoEnergy() {
+        for (let i = this.individuals.length - 1; i >= 0; i--) {
+            let individual = this.individuals[i];
+            if (individual.energy <= 0) {
+                this.individuals.splice(i, 1);
+            }
+        }
     }
 
+    #killElderlyIndividualsRandomly() {
+        for (let i = this.individuals.length - 1; i >= 0; i--) {
+            let individual = this.individuals[i];
+            let diyingProbability = random() * (individual.age / individual.longevity);
+            if (diyingProbability >= 0.6) {
+                this.individuals.splice(i, 1);
+            }
+        }
+    }
+
+    #getOlder() {
+        this.individuals.forEach(individual => individual.age += 1);
+    }
+    
+    #move() {
+        this.individuals.forEach(individual => individual.move());
+    }
 
     #generatePredators(size) {
         for (let i = 0; i < size; i++) {
             let position = this.#generateRandomPosition();
             let predator = new Predator(this.canvasWidth, this.canvasHeight, position);
             this.spawningPositions.add(position);
-            this.predators.push(predator); 
+            this.individuals.push(predator);
         }
     }
 
@@ -34,7 +61,7 @@ class Fauna {
             let position = this.#generateRandomPosition();
             let prey = new Prey(this.canvasWidth, this.canvasHeight, position);
             this.spawningPositions.add(position);
-            this.preys.push(prey); 
+            this.individuals.push(prey); 
         }
     }
 
@@ -51,4 +78,6 @@ class Fauna {
 
         return position;
     }
+
+
 }

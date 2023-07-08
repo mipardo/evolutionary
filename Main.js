@@ -1,14 +1,14 @@
 function setup() {
-    const width = 800;
-    const height = 800;
+    const width = windowWidth * 0.8;
+    const height = windowHeight * 0.98;
     createCanvas(width, height); 
     
-    fauna = new Fauna(width, height, 10, 10);
+    fauna = new Fauna(width, height, 20, 20);
 }
 
 function draw() {
     background(220);
 
-    fauna.move();
+    fauna.interact();
     fauna.draw();
 }

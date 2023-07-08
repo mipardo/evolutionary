@@ -7,8 +7,8 @@ class Predator extends Individual {
         this.height = 20;
         this.fertility = 5;
         this.direction = 0;
-        this.longevity = 100;
-        this.viweingRange = 100;
+        this.longevity = 3000;
+        this.viweingRange = 60;
         this.viweingDistance = 100;
         this.position = position;
     }

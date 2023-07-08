@@ -7,9 +7,9 @@ class Prey extends Individual {
         this.height = 20;
         this.fertility = 5;
         this.direction = 0;
-        this.longevity = 100;
+        this.longevity = 4000;
         this.viweingRange = 100;
-        this.viweingDistance = 100;
+        this.viweingDistance = 80;
         this.position = position;
     }
 
