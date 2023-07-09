@@ -13,39 +13,41 @@ class Prey extends Individual {
         this.position = position;
     }
 
+    eat() { }
+
     draw() {
         // Guarda el estado de transformación actual
-        push(); 
+        simulationGraphics.push(); 
 
         // Translada el sistema de coordenadas al centro de la elipse y rota
-        translate(this.position.x, this.position.y); 
-        rotate(radians(this.direction));
+        simulationGraphics.translate(this.position.x, this.position.y); 
+        simulationGraphics.rotate(radians(this.direction));
         
         // Dibuja el cuerpo de la elipse
-        fill(0, 255, 0);
-        stroke(0, 255, 0);
-        ellipse(0, 0, this.width, this.height);
+        simulationGraphics.fill(0, 255, 0);
+        simulationGraphics.stroke(0, 255, 0);
+        simulationGraphics.ellipse(0, 0, this.width, this.height);
         
         // Dibuja los ojos en relación a la posición (0, 0) luego de la rotación
-        fill(0);
-        stroke(0);
-        ellipse(-4, -3, 3);
-        ellipse(4, -3, 3);
+        simulationGraphics.fill(0);
+        simulationGraphics.stroke(0);
+        simulationGraphics.ellipse(-4, -3, 3);
+        simulationGraphics.ellipse(4, -3, 3);
 
         // Dibuja el campo de visión como un cono
-        fill(0, 255, 0, 25);
-        stroke(0, 255, 0, 0);
-        beginShape();
-        vertex(0, -5); // Vértice superior del cono
+        simulationGraphics.fill(0, 255, 0, 25);
+        simulationGraphics.stroke(0, 255, 0, 0);
+        simulationGraphics.beginShape();
+        simulationGraphics.vertex(0, -5); // Vértice superior del cono
         let angle = this.viweingRange / 2; // Ángulo dividido a la mitad para los vértices del cono
         for (let i = -angle; i <= angle; i++) {
             let x = this.viweingDistance * sin(radians(i)); // Cálculo de la coordenada x para cada vértice
             let y = -this.viweingDistance * cos(radians(i)); // Cálculo de la coordenada y para cada vértice
-            vertex(x, y);
+            simulationGraphics.vertex(x, y);
         }
-        endShape(CLOSE);
+        simulationGraphics.endShape(CLOSE);
 
         // Restaura el estado de transformación anterior
-        pop();
+        simulationGraphics.pop();
     }
 }

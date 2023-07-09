@@ -3,12 +3,13 @@ class Individual {
     constructor(canvasWidth, canvasHeight, position, direction, speed, longevity, fertility, viweingDistance, viweingRange) {
         this.age = 0;                                       // (0 - longevity)
         this.speed = speed;                                 // (0 - 10)
-        this.energy = 1000;
+        this.maxEnergy = 1000;
         this.position = position;
         this.direction = direction;
         this.strength = 10 - speed;                         // (0 - 10) : inverse of strength
         this.longevity = longevity;                         // (50 - 100) 
         this.fertility = fertility;                         // (0 - 9)  : probability of reproduction
+        this.energy = this.maxEnergy;
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.viweingRange = viweingRange;                   // (0 - 360)

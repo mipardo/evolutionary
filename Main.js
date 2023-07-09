@@ -1,14 +1,27 @@
 function setup() {
-    const width = windowWidth * 0.8;
-    const height = windowHeight * 0.98;
-    createCanvas(width, height); 
-    
-    fauna = new Fauna(width, height, 20, 20);
+    const canvasWidth = windowWidth * 0.99;
+    const canvasHeight = windowHeight * 0.97;
+    const simulationCanvasWidth = canvasWidth * 0.8;
+    const simulationCanvasHeight = canvasHeight * 0.98;
+    const statisticsCanvasWidth = canvasWidth * 0.2;
+    const statisticsCanvasHeight = canvasHeight * 0.98;
+
+    createCanvas(canvasWidth, canvasHeight);
+    simulationGraphics = createGraphics(simulationCanvasWidth, simulationCanvasHeight);
+    statisticsGraphics = createGraphics(statisticsCanvasWidth, statisticsCanvasHeight);
+
+    fauna = new Fauna(simulationCanvasWidth, simulationCanvasHeight, 20, 20);
 }
 
 function draw() {
-    background(220);
 
+    simulationGraphics.background(220);
     fauna.interact();
-    fauna.draw();
+    fauna.draw(simulationGraphics);
+    
+    statisticsGraphics.background(255);
+    fauna.drawStatistics(statisticsGraphics);
+ 
+    image(simulationGraphics, 0, 0); 
+    image(statisticsGraphics, simulationGraphics.width, 0);
 }
