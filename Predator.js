@@ -1,34 +1,64 @@
 class Predator extends Individual {
     
     constructor(canvasWidth, canvasHeight, position) {
-        super(canvasWidth, canvasHeight);
+        super();
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
+        this.minWidth = 8;
+        this.maxWidth = 16;
+        this.minHeight = 10;
+        this.maxHeight = 20;
         this.speed = 2;
-        this.width = 16;
-        this.height = 20;
-        this.fertility = 5;
+        this.width = this.minWidth;
+        this.height = this.minHeight;
+        this.fertility = 0.4;
         this.direction = 0;
         this.longevity = 3000;
         this.viweingRange = 60;
         this.viweingDistance = 100;
         this.position = position;
+        this.maxReproductionDesire = this.longevity / 2;
     }
    
     eat(individuals) {
         for (let i = individuals.length - 1; i >= 0; i--) {
-            let individual = individuals[i];
-            if (individual instanceof Prey && this.#areClose(individual)) {
+            let otherIndividual = individuals[i];
+            if (otherIndividual instanceof Prey && super.areClose(otherIndividual)) {
                 this.energy = this.maxEnergy;
                 individuals.splice(i, 1);
             }
         }
     }
 
-    #areClose(otherIndividual) {
-        return (10 > Math.abs(otherIndividual.position.x - this.position.x)) && 
-               (10 > Math.abs(otherIndividual.position.y - this.position.y));
+    reproduce(individuals) {
+        let otherIndividual;
+        let generateIndividual = false;
+        for (let i = 0; i < individuals.length; i++) {
+            otherIndividual = individuals[i];
+            if (otherIndividual instanceof Predator && super.areClose(otherIndividual) 
+                        && Math.random() <= this.fertility && otherIndividual !== this
+                        && this.reproductionDesire >= this.maxReproductionDesire 
+                        && otherIndividual.reproductionDesire >= otherIndividual.maxReproductionDesire) {
+                generateIndividual = true;
+                break;
+            }
+        }
+
+        if (generateIndividual) {
+            this.reproductionDesire = 0;
+            otherIndividual.reproductionDesire = 0;
+            let position = new Position(this.position.x, this.position.y);
+            individuals.push(new Predator(this.canvasWidth, this.canvasHeight, position));
+        }
     }
 
+
     draw(simulationGraphics) {
+        // Calcula el tamaño del predator según su edad
+        let ageRatio = Math.min(this.age / this.longevity, 1);
+        this.width =  (ageRatio * (this.maxWidth  - this.minWidth))  + this.minWidth;
+        this.height = (ageRatio * (this.maxHeight - this.minHeight)) + this.minHeight;
+        
         // Guarda el estado de transformación actual
         simulationGraphics.push(); 
 
@@ -47,6 +77,7 @@ class Predator extends Individual {
         simulationGraphics.ellipse(-4, -3, 3);
         simulationGraphics.ellipse(4, -3, 3);
 
+        /*
         // Dibuja el campo de visión como un cono
         simulationGraphics.fill(250, 0, 0, 20);
         simulationGraphics.stroke(250, 0, 0, 0);
@@ -59,7 +90,7 @@ class Predator extends Individual {
             simulationGraphics.vertex(x, y);
         }
         simulationGraphics.endShape(CLOSE);
-
+*/
         // Restaura el estado de transformación anterior
         simulationGraphics.pop();
     }

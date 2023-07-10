@@ -1,24 +1,14 @@
 class Individual {
 
-    constructor(canvasWidth, canvasHeight, position, direction, speed, longevity, fertility, viweingDistance, viweingRange) {
-        this.age = 0;                                       // (0 - longevity)
-        this.speed = speed;                                 // (0 - 10)
+    constructor() {
+        this.age = 0;                                       
         this.maxEnergy = 1000;
-        this.position = position;
-        this.direction = direction;
-        this.strength = 10 - speed;                         // (0 - 10) : inverse of strength
-        this.longevity = longevity;                         // (50 - 100) 
-        this.fertility = fertility;                         // (0 - 9)  : probability of reproduction
         this.energy = this.maxEnergy;
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
-        this.viweingRange = viweingRange;                   // (0 - 360)
-        this.viweingDistance = viweingDistance;             // (0 - 20)
-        this.chromosome = [speed, longevity, fertility, viweingDistance, viweingRange]
-
-        this.randomStep;
+        this.reproductionDesire = 0;
+        
+        this.randomStep = this.#getRandomStep();
         this.randomMovingCycle = this.#getRandomMovingCycle();
-        this.randomDirectionShift;
+        this.randomDirectionShift = this.#getRandomDirectionShift();
     }
     
     move() {
@@ -27,6 +17,11 @@ class Individual {
             this.randomDirectionShift = this.#getRandomDirectionShift();
         } 
         this.#move(this.randomStep, this.randomDirectionShift);
+    }
+
+    areClose(otherIndividual) {
+        return (this.width  > Math.abs(otherIndividual.position.x - this.position.x)) && 
+               (this.height > Math.abs(otherIndividual.position.y - this.position.y));
     }
     
     #move(step, directionShift) {
