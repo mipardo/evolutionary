@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
@@ -12,22 +13,32 @@
   <script src="Main.js"></script>
 
   <style>
-    #simulationCanvas {
-      width: 80%;
+    #rightSection {
       height: 100%;
-      float: left;
     }
-    #statisticsCanvas {
-      width: 20%;
-      height: 100%;
-      float: right;
+
+    #controlSection {
+      width: 100%;
+    }
+    
+    #statisticsSection {
+      width: 100%;
     }
   </style>
 </head>
 
 <body>
   <div id="simulationCanvas"></div>
-  <div id="statisticsCanvas"></div>
+  <div id="rightSection">
+    <div id="statisticsSection"> 
+      <p><span>Years: </span> <span id="years"></span></p>
+      <p><span>Population: </span> <span id="population"></span></p>
+      <p><span>Preys: </span> <span id="preys"></span></p>
+      <p><span>Predators: </span> <span id="predators"></span></p>
+      <p><span>Newborns: </span> <span id="newborns"></span></p>
+    </div>
+    <div id="controlSection"> Controlistica</div>
+  </div>
 </body>
-</html>
 
+</html>

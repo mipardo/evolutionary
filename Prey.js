@@ -55,22 +55,22 @@ class Prey extends Individual {
         this.height = (ageRatio * (this.maxHeight - this.minHeight)) + this.minHeight;
 
         // Guarda el estado de transformación actual
-        simulationGraphics.push(); 
+        push(); 
 
         // Translada el sistema de coordenadas al centro de la elipse y rota
-        simulationGraphics.translate(this.position.x, this.position.y); 
-        simulationGraphics.rotate(radians(this.direction));
+        translate(this.position.x, this.position.y); 
+        rotate(radians(this.direction));
         
         // Dibuja el cuerpo de la elipse
-        simulationGraphics.fill(0, 0, 255);
-        simulationGraphics.stroke(0, 0, 255);
-        simulationGraphics.ellipse(0, 0, this.width, this.height);
+        fill(0, 0, 255);
+        stroke(0, 0, 255);
+        ellipse(0, 0, this.width, this.height);
         
         // Dibuja los ojos en relación a la posición (0, 0) luego de la rotación
-        simulationGraphics.fill(0);
-        simulationGraphics.stroke(0);
-        simulationGraphics.ellipse(-4, -3, 3);
-        simulationGraphics.ellipse(4, -3, 3);
+        fill(0);
+        stroke(0);
+        ellipse(-4, -3, 3);
+        ellipse(4, -3, 3);
 
         /*
         // Dibuja el campo de visión como un cono
@@ -88,6 +88,6 @@ class Prey extends Individual {
         */
        
         // Restaura el estado de transformación anterior
-        simulationGraphics.pop();
+        pop();
     }
 }

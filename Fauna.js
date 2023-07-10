@@ -11,18 +11,17 @@ class Fauna {
         this.#generatePredators(nPredators);
     }
 
-    draw(simulationGraphics) {
-        this.individuals.forEach(individual => individual.draw(simulationGraphics));
+    draw() {
+        this.individuals.forEach(individual => individual.draw());
     }
 
-    drawStatistics(statisticsGraphics) {
+    drawStatistics() {
         let { preys, predators } = this.#getNumberOfPreysAndPredators();
-        statisticsGraphics.textSize(15);
-        statisticsGraphics.text('Simulation years: ' + Math.floor(this.days / 365), 10, 20);
-        statisticsGraphics.text('Population: ' + this.individuals.length, 10, 40);
-        statisticsGraphics.text('Preys: ' + preys, 10, 60);
-        statisticsGraphics.text('Predators: ' + predators, 10, 80);
-        statisticsGraphics.text('Newborns: ' + this.newBorns, 10, 100);
+        document.getElementById('years').textContent = Math.floor(this.days / 365);
+        document.getElementById('population').textContent = this.individuals.length;
+        document.getElementById('preys').textContent = preys;
+        document.getElementById('predators').textContent = predators;
+        document.getElementById('newborns').textContent = this.newBorns;
     }
 
 

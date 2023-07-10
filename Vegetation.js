@@ -22,12 +22,12 @@ class Vegetation{
         for (let y = 0; y < this.vegetationHeight; y++) {
             for (let x = 0; x < this.vegetationWidth; x++) {
                 if (this.vegetation[y][x] >= 1) {
-                    simulationGraphics.stroke(0, 0, 0, 0); 
-                    simulationGraphics.fill(0, this.vegetation[y][x], 0, 80); 
+                    stroke(0, 0, 0, 0); 
+                    fill(0, this.vegetation[y][x], 0, 80); 
                 } else {
-                    simulationGraphics.fill(128);
+                    fill(128);
                 }
-                simulationGraphics.rect(x * this.vegetationSize, y * this.vegetationSize, this.vegetationSize, this.vegetationSize); 
+                rect(x * this.vegetationSize, y * this.vegetationSize, this.vegetationSize, this.vegetationSize); 
             }
         }       
     }
