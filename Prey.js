@@ -48,7 +48,7 @@ class Prey extends Individual {
         }
     }
 
-    draw() {
+    draw(showVisionField) {
         // Calcula el tamaño del prey según su edad
         let ageRatio = Math.min(this.age / this.longevity, 1);
         this.width =  (ageRatio * (this.maxWidth  - this.minWidth))  + this.minWidth;
@@ -62,8 +62,8 @@ class Prey extends Individual {
         rotate(radians(this.direction));
         
         // Dibuja el cuerpo de la elipse
-        fill(0, 0, 255);
-        stroke(0, 0, 255);
+        fill(58, 135, 253);
+        stroke(58, 135, 253);
         ellipse(0, 0, this.width, this.height);
         
         // Dibuja los ojos en relación a la posición (0, 0) luego de la rotación
@@ -72,20 +72,20 @@ class Prey extends Individual {
         ellipse(-4, -3, 3);
         ellipse(4, -3, 3);
 
-        /*
-        // Dibuja el campo de visión como un cono
-        simulationGraphics.fill(0, 0, 255, 25);
-        simulationGraphics.stroke(0, 0, 255, 0);
-        simulationGraphics.beginShape();
-        simulationGraphics.vertex(0, -5); // Vértice superior del cono
-        let angle = this.viweingRange / 2; // Ángulo dividido a la mitad para los vértices del cono
-        for (let i = -angle; i <= angle; i++) {
-            let x = this.viweingDistance * sin(radians(i)); // Cálculo de la coordenada x para cada vértice
-            let y = -this.viweingDistance * cos(radians(i)); // Cálculo de la coordenada y para cada vértice
-            simulationGraphics.vertex(x, y);
+        if (showVisionField) {
+            // Dibuja el campo de visión como un cono
+            fill(0, 0, 230, 25);
+            stroke(58, 135, 253, 0);
+            beginShape();
+            vertex(0, -5); // Vértice superior del cono
+            let angle = this.viweingRange / 2; // Ángulo dividido a la mitad para los vértices del cono
+            for (let i = -angle; i <= angle; i++) {
+                let x = this.viweingDistance * sin(radians(i)); // Cálculo de la coordenada x para cada vértice
+                let y = -this.viweingDistance * cos(radians(i)); // Cálculo de la coordenada y para cada vértice
+                vertex(x, y);
+            }
+            endShape(CLOSE);
         }
-        simulationGraphics.endShape(CLOSE);
-        */
        
         // Restaura el estado de transformación anterior
         pop();

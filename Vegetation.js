@@ -1,8 +1,8 @@
 class Vegetation{
-    constructor(canvasWidth, canvasHeight) {
+    constructor(canvasWidth, canvasHeight, blockSize) {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
-        this.vegetationSize = 20;
+        this.vegetationSize = blockSize;
         this.vegetationWidth = Math.floor(canvasWidth / this.vegetationSize);
         this.vegetationHeight = Math.floor(canvasHeight / this.vegetationSize);
         this.vegetation = new Array(this.vegetationHeight).fill(null).map(() => new Array(this.vegetationWidth).fill(255));
@@ -18,7 +18,7 @@ class Vegetation{
         return 0;
     }
 
-    draw(simulationGraphics) {
+    draw() {
         for (let y = 0; y < this.vegetationHeight; y++) {
             for (let x = 0; x < this.vegetationWidth; x++) {
                 if (this.vegetation[y][x] >= 1) {

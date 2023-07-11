@@ -3,27 +3,69 @@ class Fauna {
         this.days = 0;
         this.newBorns = 0;
         this.individuals = [];
+        this.maxPreys = nPreys;
         this.vegetation = vegetation;
+        this.maxPredators = nPredators;
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.spawningPositions = new Set();
         this.#generatePreys(nPreys);
         this.#generatePredators(nPredators);
+        //this.#createPopulationChart();
     }
 
     draw() {
-        this.individuals.forEach(individual => individual.draw());
+        let showVisionField = document.getElementById('showVisionField').checked;
+        this.individuals.forEach(individual => individual.draw(showVisionField));
     }
 
     drawStatistics() {
         let { preys, predators } = this.#getNumberOfPreysAndPredators();
+
         document.getElementById('years').textContent = Math.floor(this.days / 365);
         document.getElementById('population').textContent = this.individuals.length;
         document.getElementById('preys').textContent = preys;
         document.getElementById('predators').textContent = predators;
         document.getElementById('newborns').textContent = this.newBorns;
+        //this.#drawPopulationChart(preys, predators);
     }
 
+    #createPopulationChart() {
+        const data = {
+
+            datasets: [{
+                label: "predators",
+                borderColor: "red",
+                fill: true
+            },
+            {
+                label: "preys",
+                borderColor: "blue",
+                fill: true
+            }]
+        };
+        const options = {
+            legend: { display: false },
+
+        };
+
+        this.populationChart = new Chart("populationChart", {
+            type: "line",
+            data: data,
+            options: options
+        });
+    }
+
+    #drawPopulationChart(currentPreys, currentPredators) {
+        this.populationChart.data.datasets.forEach((dataset) => {
+            if (dataset.label === "preys") {
+                dataset.data.push(currentPreys);
+            } else {
+                dataset.data.push(currentPredators);
+            }
+        });
+        this.populationChart.update();
+    }
 
     interact() {
         //this.#killElderlyIndividualsRandomly();
@@ -116,7 +158,7 @@ class Fauna {
         return position;
     }
 
-    #getNumberOfPreysAndPredators(){
+    #getNumberOfPreysAndPredators() {
         let preys = 0;
         let predators = 0;
         for (let i = 0; i < this.individuals.length; i++) {

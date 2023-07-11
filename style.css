@@ -1,0 +1,61 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+}
+
+#mainDiv {
+    display: flex;
+    justify-content: left;
+    align-items: stretch; 
+    background-color: yellow;
+}
+
+#title {
+    font-size: 20px;
+    text-align: center;
+}
+
+#leftSection {
+    flex-grow: 5; 
+    border: 2px solid #000;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: red;
+}
+
+#rightSection {
+    flex-grow: 1; 
+    align-content: space-evenly;
+}
+
+#statisticsSection {
+    margin: 0, 10, 10, 10;
+    width: calc(100% - 40px);
+    margin: 10px;
+    margin-top: 0px;
+    border: 2px solid #000;
+    border-radius: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#controlSection {
+    width: calc(100% - 40px);
+    border: 2px solid #000;
+    margin: 10px;
+    margin-bottom: 0px;
+    border-radius: 20px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+
+
+.item {
+    margin-bottom: 3px;
+    margin-left: 5px;
+}
+
+#populationChartContainer {
+    height: 200px;
+}

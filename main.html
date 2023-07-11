@@ -3,7 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="Position.js"></script>
   <script src="Individual.js"></script>
   <script src="Predator.js"></script>
@@ -11,34 +14,41 @@
   <script src="Vegetation.js"></script>
   <script src="Fauna.js"></script>
   <script src="Main.js"></script>
-
-  <style>
-    #rightSection {
-      height: 100%;
-    }
-
-    #controlSection {
-      width: 100%;
-    }
-    
-    #statisticsSection {
-      width: 100%;
-    }
-  </style>
 </head>
 
 <body>
-  <div id="simulationCanvas"></div>
-  <div id="rightSection">
-    <div id="statisticsSection"> 
-      <p><span>Years: </span> <span id="years"></span></p>
-      <p><span>Population: </span> <span id="population"></span></p>
-      <p><span>Preys: </span> <span id="preys"></span></p>
-      <p><span>Predators: </span> <span id="predators"></span></p>
-      <p><span>Newborns: </span> <span id="newborns"></span></p>
-    </div>
-    <div id="controlSection"> Controlistica</div>
+  <div id="title"> 
+    <h1> Evolutionary </h1>
   </div>
+
+  <div id="mainDiv">
+
+    <div id="leftSection"> </div>
+  
+    <div id="rightSection">
+      <div id="statisticsSection">
+        
+        <div class="item"><b>Estado de la simulación</b></div>
+        <div class="item"><span>Years: </span> <span id="years"></span></div>
+        <div class="item"><span>Population: </span> <span id="population"></span></div>
+        <div class="item"><span>Preys: </span> <span id="preys"></span></div>
+        <div class="item"><span>Predators: </span> <span id="predators"></span></div>
+        <div class="item"><span>Newborns: </span> <span id="newborns"></span></div>
+        <div id="populationChartContainer">
+          <canvas id="populationChart"></canvas>
+        </div>
+      </div>
+  
+      <div id="controlSection">
+        <div><b>Contoles de la simulación</b></div>
+        <div>
+          <input type="checkbox" id="showVisionField" name="showVisionField">
+          <label for="showVisionField">Mostrar campo de visión</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>
