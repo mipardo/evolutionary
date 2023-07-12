@@ -1,15 +1,11 @@
-html {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 98vh;
     font-family: 'Poppins', sans-serif;
     font-size: 15px;
+    background-color: #282828;
+    color: white;
 }
 
 #titleSection {
@@ -23,22 +19,28 @@ body {
 #mainSection {
     display: flex;
     flex-direction: row;
-    flex-grow: 3;
-    margin-bottom: 2%;
-    background-color: yellow;
+    justify-content: space-between;
+    flex-grow: 20;
+    margin: 20px;
 }
 
 #leftSection {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: 100%;
     flex-grow: 4; 
-    justify-content: center;
-    
-    border: 2px solid #000;
+    align-items: center;
+    border: 2px solid white;
     border-radius: 20px;
     padding: 10px;
-    background-color: red;
+    background-color: #3D3D3C;
 }
+
+#leftSection canvas {
+    display: flex;
+    flex-grow: 1;
+}
+
 
 #rightSection {
     display: flex;
@@ -51,7 +53,8 @@ body {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    border: 2px solid #000;
+    background-color: #3D3D3C;
+    border: 2px solid white;
     border-radius: 20px;
     padding: 10px;
 }
@@ -60,9 +63,9 @@ body {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-
+    background-color: #3D3D3C;
     margin-top: 10px;
-    border: 2px solid #000;
+    border: 2px solid white;
     border-radius: 20px;
     padding: 10px;
 }
