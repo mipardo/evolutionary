@@ -5,8 +5,8 @@ class Predator extends Individual {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.minWidth = 8;
-        this.maxWidth = 16;
-        this.minHeight = 10;
+        this.maxWidth = 20;
+        this.minHeight = 8;
         this.maxHeight = 20;
         this.speed = 2;
         this.width = this.minWidth;
@@ -17,7 +17,7 @@ class Predator extends Individual {
         this.viweingRange = 60;
         this.viweingDistance = 100;
         this.position = position;
-        this.maxReproductionDesire = this.longevity / 2;
+        this.maxReproductionDesire = this.longevity / 10;
     }
    
     eat(individuals) {
@@ -74,8 +74,8 @@ class Predator extends Individual {
         // Dibuja los ojos en relación a la posición (0, 0) luego de la rotación
         fill(0);
         stroke(0);
-        ellipse(-4, -3, 3);
-        ellipse(4, -3, 3);
+        ellipse(-3, -3, 2);
+        ellipse( 3, -3, 2);
 
         if (showVisionField) {
             // Dibuja el campo de visión como un cono

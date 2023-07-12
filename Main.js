@@ -11,7 +11,7 @@ function setup() {
     simulationCanvas.parent('leftSection');
     
     vegetation = new Vegetation(simulationCanvasWidth, simulationCanvasHeight, blockSize);
-    fauna = new Fauna(simulationCanvasWidth, simulationCanvasHeight, vegetation, 40, 20);
+    fauna = new Fauna(simulationCanvasWidth, simulationCanvasHeight, vegetation, 20, 10);
 }
 
 function draw() {

@@ -9,13 +9,41 @@ class Vegetation{
     }
 
     eat(position) {
-        let xMapped = Math.floor(position.x / this.vegetationSize) % this.vegetationWidth;
-        let yMapped = Math.floor(position.y / this.vegetationSize) % this.vegetationHeight;
+        let {xMapped, yMapped} = this.#getMappedPosition(position);
         if (this.vegetation[yMapped][xMapped] > 0) {
             this.vegetation[yMapped][xMapped]--;
             return 1;
         }
         return 0;
+    }
+
+    getFieldVisibility(position, sightDistance) {
+        let {xMapped, yMapped} = this.#getMappedPosition(position);
+
+        let xStart = xMapped - sightDistance;
+        let xEnd =   xMapped + sightDistance;
+        let yStart = yMapped - sightDistance;
+        let yEnd =   yMapped + sightDistance;
+
+        fieldVisibility = [];
+        for(let y = yStart; y < yEnd; y++) {
+            fieldVisibility[y] = [];
+            for(let x = xStart; x < xEnd; x++) {
+                if (x < 0 || y < 0 || x > this.vegetationWidth || y > this.vegetationHeight) {
+                    fieldVisibility[y][x] = -1;
+                } else {
+                    fieldVisibility[y][x] = this.vegetation[y][x];
+                }
+            }
+        }
+        return fieldVisibility;
+
+    }
+
+    #getMappedPosition(position) {
+        const xMapped = Math.floor(position.x / this.vegetationSize) % this.vegetationWidth;
+        const yMapped = Math.floor(position.y / this.vegetationSize) % this.vegetationHeight;
+        return {xMapped, yMapped};
     }
 
     draw() {

@@ -8,8 +8,8 @@ class Prey extends Individual {
         this.direction = 0;
         this.speed = 1;
         this.minWidth = 8;
-        this.maxWidth = 16;
-        this.minHeight = 10;
+        this.maxWidth = 20;
+        this.minHeight = 8;
         this.maxHeight = 20;
         this.width = this.minWidth;
         this.height = this.minHeight;
@@ -17,7 +17,25 @@ class Prey extends Individual {
         this.longevity = 4000;
         this.viweingRange = 100;
         this.viweingDistance = 80;
-        this.maxReproductionDesire = this.longevity / 2;
+        this.sightDistance = 5;
+        this.maxReproductionDesire = this.longevity / 5;
+        this.fieldVisibility = this.#createFieldVisibility();
+    }
+
+    #createFieldVisibility() {
+        let fieldVisibility = [];
+        for(let i = 0; i < this.sightDistance; i++) {
+            fieldVisibility[i] = [];
+            for(let j = 0; j < this.sightDistance; j++) {
+                fieldVisibility[i][j] = -1;
+            }
+        }
+        return fieldVisibility;
+    }
+
+
+    updateFieldVisibility(vegetation) {
+        this.fieldVisibility = vegetation.getFieldVisibility(this.position, this.sightDistance);
     }
 
     eat(vegetation) {
@@ -69,22 +87,14 @@ class Prey extends Individual {
         // Dibuja los ojos en relación a la posición (0, 0) luego de la rotación
         fill(0);
         stroke(0);
-        ellipse(-4, -3, 3);
-        ellipse(4, -3, 3);
+        ellipse(-3, -3, 2);
+        ellipse( 3, -3, 2);
 
         if (showVisionField) {
             // Dibuja el campo de visión como un cono
             fill(0, 0, 230, 25);
             stroke(58, 135, 253, 0);
-            beginShape();
-            vertex(0, -5); // Vértice superior del cono
-            let angle = this.viweingRange / 2; // Ángulo dividido a la mitad para los vértices del cono
-            for (let i = -angle; i <= angle; i++) {
-                let x = this.viweingDistance * sin(radians(i)); // Cálculo de la coordenada x para cada vértice
-                let y = -this.viweingDistance * cos(radians(i)); // Cálculo de la coordenada y para cada vértice
-                vertex(x, y);
-            }
-            endShape(CLOSE);
+            ellipse(0, 0, this.sightDistance * 20);
         }
        
         // Restaura el estado de transformación anterior
