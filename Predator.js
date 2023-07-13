@@ -4,6 +4,7 @@ class Predator extends Individual {
         super();
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
+        this.position = position;
         this.minWidth = 8;
         this.maxWidth = 20;
         this.minHeight = 8;
@@ -16,8 +17,11 @@ class Predator extends Individual {
         this.longevity = 3000;
         this.viweingRange = 60;
         this.viweingDistance = 100;
-        this.position = position;
         this.maxReproductionDesire = this.longevity / 10;
+    }
+
+    move() {
+        super.moveRondomly();
     }
    
     eat(individuals) {

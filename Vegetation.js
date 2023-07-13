@@ -1,64 +1,32 @@
-class Vegetation{
-    constructor(canvasWidth, canvasHeight, blockSize) {
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
-        this.vegetationSize = blockSize;
-        this.vegetationWidth = Math.floor(canvasWidth / this.vegetationSize);
-        this.vegetationHeight = Math.floor(canvasHeight / this.vegetationSize);
-        this.vegetation = new Array(this.vegetationHeight).fill(null).map(() => new Array(this.vegetationWidth).fill(255));
+class Vegetation {
+    constructor(canvasWidth, canvasHeight) {
+        this.vegetationSize = 4;
+        this.vegetationQuantity = 100;
+        this.vegetation = RandomGenerator.generateVegetation(this.vegetationQuantity, canvasWidth, canvasHeight);
     }
 
-    eat(position) {
-        let {xMapped, yMapped} = this.#getMappedPosition(position);
-        if (this.vegetation[yMapped][xMapped] > 0) {
-            this.vegetation[yMapped][xMapped]--;
-            return 1;
-        }
-        return 0;
-    }
-
-    getFieldVisibility(position, sightDistance) {
-        let {xMapped, yMapped} = this.#getMappedPosition(position);
-
-        let xStart = xMapped - sightDistance;
-        let xEnd =   xMapped + sightDistance;
-        let yStart = yMapped - sightDistance;
-        let yEnd =   yMapped + sightDistance;
-
-        fieldVisibility = [];
-        for(let y = yStart; y < yEnd; y++) {
-            fieldVisibility[y] = [];
-            for(let x = xStart; x < xEnd; x++) {
-                if (x < 0 || y < 0 || x > this.vegetationWidth || y > this.vegetationHeight) {
-                    fieldVisibility[y][x] = -1;
-                } else {
-                    fieldVisibility[y][x] = this.vegetation[y][x];
-                }
+    eat(preyPos) {
+        let energyAcquired = 0;
+        this.vegetation.forEach((energy, vegetationPos) => {
+            if (this.#isCloseToEat(preyPos, vegetationPos)) {
+                energyAcquired += energy
+                delete this.vegetation[vegetationPos];
             }
-        }
-        return fieldVisibility;
-
+        });
+        return energyAcquired;
     }
 
-    #getMappedPosition(position) {
-        const xMapped = Math.floor(position.x / this.vegetationSize) % this.vegetationWidth;
-        const yMapped = Math.floor(position.y / this.vegetationSize) % this.vegetationHeight;
-        return {xMapped, yMapped};
+    #isCloseToEat(preyPos, vegetationPos) {
+        return (this.vegetationSize > Math.abs(preyPos.x - vegetationPos.x)) && 
+               (this.vegetationSize > Math.abs(preyPos.y - vegetationPos.y));
     }
 
     draw() {
-        for (let y = 0; y < this.vegetationHeight; y++) {
-            for (let x = 0; x < this.vegetationWidth; x++) {
-                if (this.vegetation[y][x] >= 1) {
-                    stroke(0, 0, 0, 0); 
-                    fill(0, this.vegetation[y][x], 0, 80); 
-                } else {
-                    fill(128);
-                }
-                rect(x * this.vegetationSize, y * this.vegetationSize, this.vegetationSize, this.vegetationSize); 
-            }
-        }       
+        this.vegetation.forEach((energy, position) => {
+            fill(0, energy, 0);
+            stroke(0, energy, 0);
+            ellipse(position.x, position.y, this.vegetationSize);
+        });
     }
-
 
 }

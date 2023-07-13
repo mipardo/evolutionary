@@ -15,27 +15,13 @@ class Prey extends Individual {
         this.height = this.minHeight;
         this.fertility = 0.6;
         this.longevity = 4000;
-        this.viweingRange = 100;
-        this.viweingDistance = 80;
         this.sightDistance = 5;
         this.maxReproductionDesire = this.longevity / 5;
-        this.fieldVisibility = this.#createFieldVisibility();
     }
 
-    #createFieldVisibility() {
-        let fieldVisibility = [];
-        for(let i = 0; i < this.sightDistance; i++) {
-            fieldVisibility[i] = [];
-            for(let j = 0; j < this.sightDistance; j++) {
-                fieldVisibility[i][j] = -1;
-            }
-        }
-        return fieldVisibility;
-    }
-
-
-    updateFieldVisibility(vegetation) {
-        this.fieldVisibility = vegetation.getFieldVisibility(this.position, this.sightDistance);
+    
+    move() {
+        super.moveRondomly();
     }
 
     eat(vegetation) {
@@ -94,10 +80,11 @@ class Prey extends Individual {
             // Dibuja el campo de visión como un cono
             fill(0, 0, 230, 25);
             stroke(58, 135, 253, 0);
-            ellipse(0, 0, this.sightDistance * 20);
+            ellipse(0, 0, this.sightDistance);
         }
        
         // Restaura el estado de transformación anterior
         pop();
     }
+
 }
