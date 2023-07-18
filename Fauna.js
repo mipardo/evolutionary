@@ -2,14 +2,12 @@ class Fauna {
     constructor(canvasWidth, canvasHeight, vegetation, nPreys, nPredators) {
         this.days = 0;
         this.newBorns = 0;
-        this.individuals = [];
         this.maxPreys = nPreys;
         this.vegetation = vegetation;
         this.maxPredators = nPredators;
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
-        this.preys = RandomGenerator.generatePreys(nPreys, canvasWidth, canvasHeight);
-        this.predators = RandomGenerator.generatePredators(nPredators, canvasWidth, canvasHeight);   
+        this.individuals = RandomGenerator.generateFauna(nPreys, nPredators, canvasWidth, canvasHeight);
     }
 
     draw() {
@@ -46,11 +44,7 @@ class Fauna {
     #eat() {
         for (let i = 0; i < this.individuals.length; i++) {
             let individual = this.individuals[i];
-            if (individual instanceof Prey) {
-                individual.eat(this.vegetation);
-            } else {
-                individual.eat(this.individuals);
-            }
+            individual.eat(this.individuals, this.vegetation);
         }
     }
 

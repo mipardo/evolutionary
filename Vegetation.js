@@ -1,7 +1,7 @@
 class Vegetation {
-    constructor(canvasWidth, canvasHeight) {
-        this.vegetationSize = 4;
-        this.vegetationQuantity = 100;
+    constructor(canvasWidth, canvasHeight, startingVegetaton) {
+        this.vegetationSize = 2;
+        this.vegetationQuantity = startingVegetaton;
         this.vegetation = RandomGenerator.generateVegetation(this.vegetationQuantity, canvasWidth, canvasHeight);
     }
 
@@ -9,8 +9,8 @@ class Vegetation {
         let energyAcquired = 0;
         this.vegetation.forEach((energy, vegetationPos) => {
             if (this.#isCloseToEat(preyPos, vegetationPos)) {
-                energyAcquired += energy
-                delete this.vegetation[vegetationPos];
+                energyAcquired += energy;
+                this.vegetation.delete(vegetationPos);
             }
         });
         return energyAcquired;

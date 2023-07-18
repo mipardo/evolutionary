@@ -24,7 +24,7 @@ class Predator extends Individual {
         super.moveRondomly();
     }
    
-    eat(individuals) {
+    eat(individuals, _) {
         for (let i = individuals.length - 1; i >= 0; i--) {
             let otherIndividual = individuals[i];
             if (otherIndividual instanceof Prey && super.areClose(otherIndividual)) {

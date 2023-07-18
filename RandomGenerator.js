@@ -2,54 +2,49 @@ class RandomGenerator {
 
     static spawningPositions = new Set();
 
-    static generatePredators(size, canvasWidth, canvasHeight) {
-        const predators = []
-        for (let i = 0; i < size; i++) {
-            let position = this.generateRandomPosition();
-            while (position in this.spawningPositions) {
-                position = this.generateRandomPosition(canvasWidth, canvasHeight);
-            }
-            let predator = new Predator(canvasWidth, canvasHeight, position);
+    static generateFauna(nPreys, nPredators, canvasWidth, canvasHeight) {
+        const individuals = []
+        for (let i = 0; i < nPreys; i++) {
+            const position = this.generateUnspawnedPosition(canvasWidth, canvasHeight);
+            const prey = new Prey(canvasWidth, canvasHeight, position);
             this.spawningPositions.add(position);
-            predators.push(predator);
+            individuals.push(prey);
         }
-        return predators;
-    }
-
-    static generatePreys(size, canvasWidth, canvasHeight) {
-        const preys = []
-        for (let i = 0; i < size; i++) {
-            let position = this.generateRandomPosition();
-            while (position in this.spawningPositions) {
-                position = this.generateRandomPosition(canvasWidth, canvasHeight);
-            }
-            let prey = new Prey(canvasWidth, canvasHeight, position);
+        for (let i = 0; i < nPredators; i++) {
+            const position = this.generateUnspawnedPosition(canvasWidth, canvasHeight);
+            const predator = new Predator(canvasWidth, canvasHeight, position);
             this.spawningPositions.add(position);
-            preys.push(prey);
+            individuals.push(predator);
         }
-        return preys;
+        return individuals;
     }
 
     static generateVegetation(size, canvasWidth, canvasHeight) {
         const vegetation = new Map();
         for (let i = 0; i < size; i++) {
-            let position = this.generateRandomPosition();
-            while (this.spawningPositions.has(position)) {
-                position = this.generateRandomPosition(canvasWidth, canvasHeight);
-            }
+            const position = this.generateUnspawnedPosition(canvasWidth, canvasHeight);
             this.spawningPositions.add(position);
             vegetation.set(position, this.generateRandomEnergy());
         }
         return vegetation;
     }
 
+    
+    static generateUnspawnedPosition(canvasWidth, canvasHeight) {
+        let position = this.generateRandomPosition(canvasWidth, canvasHeight);
+        while (this.spawningPositions.has(position)) {
+            position = this.generateRandomPosition(canvasWidth, canvasHeight);
+        }
+        return position;
+    }
+    
     static generateRandomEnergy() {
         return Math.floor(Math.random() * (255 - 150 + 1)) + 150;
     }
 
     static generateRandomPosition(canvasWidth, canvasHeight) {
-        let x = Math.floor(Math.random() * (Math.floor(canvasWidth) + 1));
-        let y = Math.floor(Math.random() * (Math.floor(canvasHeight) + 1));
+        const x = Math.floor(Math.random() * (Math.floor(canvasWidth) + 1));
+        const y = Math.floor(Math.random() * (Math.floor(canvasHeight) + 1));
         return new Position(x, y);
     }
 

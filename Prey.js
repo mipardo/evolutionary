@@ -15,7 +15,7 @@ class Prey extends Individual {
         this.height = this.minHeight;
         this.fertility = 0.6;
         this.longevity = 4000;
-        this.sightDistance = 5;
+        this.sightDistance = 90;
         this.maxReproductionDesire = this.longevity / 5;
     }
 
@@ -24,9 +24,9 @@ class Prey extends Individual {
         super.moveRondomly();
     }
 
-    eat(vegetation) {
+    eat(_, vegetation) {
         if (this.energy < this.maxEnergy) {
-            this.energy += vegetation.eat(this.position);
+            this.energy += Math.min(vegetation.eat(this.position), this.maxEnergy - this.energy);
         }
     }
 
@@ -77,7 +77,6 @@ class Prey extends Individual {
         ellipse( 3, -3, 2);
 
         if (showVisionField) {
-            // Dibuja el campo de visión como un cono
             fill(0, 0, 230, 25);
             stroke(58, 135, 253, 0);
             ellipse(0, 0, this.sightDistance);
